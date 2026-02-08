@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Best Friend?</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      z-index: 10;
+      position: relative;
+    }
+
+    h1 {
+      color: #e91e63;
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 12px 30px;
+      margin: 15px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    #yesBtn {
+      background: #e91e63;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      background: #d81b60;
+    }
+
+    #noBtn {
+      background: #9e9e9e;
+      color: white;
+      position: absolute;
+    }
+
+    /* Floating and twinkling hearts/flowers */
+    .floating {
+      position: absolute;
+      animation-name: floatTwist;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatTwist {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      50% {
+        transform: translateY(50vh) rotate(180deg) translateX(50px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg) translateX(-50px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="firstPage">
+    <h1>Hey Arpitha 💖<br>Will you be my best friend?</h1>
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 😜</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+
+    // Run-away No button
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    // Yes button animation
+    document.getElementById("yesBtn").addEventListener("click", () => {
+      const container = document.getElementById("firstPage");
+      container.innerHTML = `
+        <div class="container" style="background: rgba(255,255,255,0.9); border-radius:25px;">
+          <h1>Awwwww 💖💖💖</h1>
+          <p>❤️ Our souls are forever entwined as best friend's ❤️</p>
+          <p style="font-size:40px;">💐🌸🌺🌹🌷</p>
+        </div>
+      `;
+
+      const emojis = ['❤️', '💖', '🌹', '💐', '🌸', '🌷', '🌺'];
+
+      function createFloatingEmoji() {
+        const emoji = document.createElement('div');
+        emoji.classList.add('floating');
+        emoji.style.left = Math.random() * 100 + 'vw';
+        emoji.style.fontSize = (20 + Math.random() * 30) + 'px';
+        emoji.style.animationDuration = (5 + Math.random() * 5) + 's';
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        document.body.appendChild(emoji);
+
+        setTimeout(() => {
+          emoji.remove();
+        }, 10000);
+      }
+
+      setInterval(createFloatingEmoji, 250);
+    });
+  </script>
+
+</body>
+</html>
